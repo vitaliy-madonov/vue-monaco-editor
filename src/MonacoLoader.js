@@ -1,6 +1,6 @@
 module.exports = {
   /* For now: default to cdn. */
-  load(srcPath = '/monaco', callback) {
+  load(srcPath = '/js/monaco', callback) {
     if (window.monaco) {
       callback();
       return;
