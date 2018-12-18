@@ -1,9 +1,5 @@
 import Vue from 'vue'
-// import App from './App.vue'
-
-// const App = () => import('./App.vue').then(m => m.default);
-
-const App = require('./App.vue').default
+import App from './App.vue'
 
 new Vue({
   el: '#app',
