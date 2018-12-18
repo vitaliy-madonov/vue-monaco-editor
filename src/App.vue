@@ -18,7 +18,7 @@
 </template>
 
 <script>
-const Monaco = require('./Monaco.vue')
+const Monaco = require('./Monaco.vue').default;
 
 module.exports = {
   components: {
