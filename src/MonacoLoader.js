@@ -1,33 +1,36 @@
 module.exports = {
   /* For now: default to cdn. */
-  load(srcPath = '/js/monaco', callback) {
+  load: function load() {
+    var srcPath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/js/monaco';
+    var callback = arguments[1];
+
     if (window.monaco) {
       callback();
       return;
     }
-    const config = {
+    var config = {
       paths: {
         vs: '/js/monaco/vs'
       }
     };
-    const loaderUrl = `${config.paths.vs}/loader.js`;
-    const onGotAmdLoader = () => {
+    var loaderUrl = config.paths.vs + '/loader.js';
+    var onGotAmdLoader = function onGotAmdLoader() {
 
       if (window.LOADER_PENDING) {
         window.require.config(config);
       }
 
       // Load monaco
-      window.require(['vs/editor/editor.main'], () => {
+      window.require(['vs/editor/editor.main'], function () {
         callback();
       });
 
       // Call the delayed callbacks when AMD loader has been loaded
       if (window.LOADER_PENDING) {
         window.LOADER_PENDING = false;
-        const loaderCallbacks = window.LOADER_CALLBACKS;
+        var loaderCallbacks = window.LOADER_CALLBACKS;
         if (loaderCallbacks && loaderCallbacks.length) {
-          let currentCallback = loaderCallbacks.shift();
+          var currentCallback = loaderCallbacks.shift();
           while (currentCallback) {
             currentCallback.fn.call(currentCallback.window);
             currentCallback = loaderCallbacks.shift();
@@ -47,7 +50,7 @@ module.exports = {
       });
     } else {
       if (typeof window.require === 'undefined') {
-        const loaderScript = window.document.createElement('script');
+        var loaderScript = window.document.createElement('script');
         loaderScript.type = 'text/javascript';
         loaderScript.src = loaderUrl;
         loaderScript.addEventListener('load', onGotAmdLoader);
@@ -58,4 +61,4 @@ module.exports = {
       }
     }
   }
-}
+};
