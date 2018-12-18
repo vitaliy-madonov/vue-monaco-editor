@@ -7,7 +7,7 @@ module.exports = {
     }
     const config = {
       paths: {
-        vs: '/js/monaco/vs'
+        vs: srcPath + '/vs'
       }
     };
     const loaderUrl = `${config.paths.vs}/loader.js`;
