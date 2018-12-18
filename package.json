@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
+    "monaco-editor": "^0.15.6",
     "vue": "^2.1.0"
   },
   "devDependencies": {

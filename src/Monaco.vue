@@ -14,11 +14,11 @@ module.exports = {
     srcPath: { type: String },
     language: { type: String, default: 'javascript' },
     theme: { type: String, default: 'vs-dark' }, // vs, hc-black
-    options: { type: Object, default: function () { return {}; } },
-    highlighted: { type: Array, default: function () {return [{
+    options: { type: Object, default: () => {} },
+    highlighted: { type: Array, default: () => [{
       number: 0,
       class: ''
-    }]} },
+    }] },
     changeThrottle: { type: Number, default: 0 }
   },
   mounted() {
@@ -73,21 +73,20 @@ module.exports = {
       if (!this.editor) {
         return;
       }
-      const $this = this;
-      lines.forEach(function (line) {
+      lines.forEach((line) => {
         const className = line.class;
-        const highlighted = $this.$el.querySelector(`.${className}`);
+        const highlighted = this.$el.querySelector(`.${className}`);
 
         if (highlighted) {
           highlighted.classList.remove(className);
         }
 
         const number = parseInt(line.number);
-        if (!$this.editor && number < 1 || isNaN(number)) {
+        if (!this.editor && number < 1 || isNaN(number)) {
           return;
         }
 
-        const selectedLine = $this.$el.querySelector(`.view-lines [linenumber="${number}"]`);
+        const selectedLine = this.$el.querySelector(`.view-lines [linenumber="${number}"]`);
         if (selectedLine) {
           selectedLine.classList.add(className);
         }
@@ -96,10 +95,9 @@ module.exports = {
     editorHasLoaded(editor, monaco) {
       this.editor = editor;
       this.monaco = monaco;
-      const $this = this;
-      this.editor.onDidChangeModelContent(function(event) {
-        return $this.codeChangeHandler(editor, event)
-      });
+      this.editor.onDidChangeModelContent(event =>
+        this.codeChangeHandler(editor, event)
+      );
       this.$emit('mounted', editor);
     },
     codeChangeHandler: function(editor) {
