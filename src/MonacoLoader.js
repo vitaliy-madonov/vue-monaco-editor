@@ -11,14 +11,14 @@ module.exports = {
       }
     };
     const loaderUrl = `${config.paths.vs}/loader.js`;
-    const onGotAmdLoader = () => {
+    const onGotAmdLoader = function () {
 
       if (window.LOADER_PENDING) {
         window.require.config(config);
       }
 
       // Load monaco
-      window.require(['vs/editor/editor.main'], () => {
+      window.require(['vs/editor/editor.main'], function () {
         callback();
       });
 
