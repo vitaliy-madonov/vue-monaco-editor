@@ -14,11 +14,11 @@ module.exports = {
     srcPath: { type: String },
     language: { type: String, default: 'javascript' },
     theme: { type: String, default: 'vs-dark' }, // vs, hc-black
-    options: { type: Object, default: () => {} },
-    highlighted: { type: Array, default: () => [{
+    options: { type: Object, default: function() {return {}} },
+    highlighted: { type: Array, default: function() { return [{
       number: 0,
       class: ''
-    }] },
+    }]} },
     changeThrottle: { type: Number, default: 0 }
   },
   mounted() {
